@@ -42,31 +42,31 @@ CREATE TABLE Cliente(
 CREATE TABLE Tarjeta(
   id serial PRIMARY KEY,
   rut_cliente int,
-  FOREIGN KEY (rut_cliente) REFERENCES Cliente(rut),
+  FOREIGN KEY (rut_cliente) REFERENCES Cliente(rut) ON DELETE CASCADE,
   meses_deuda int,
   anho_apertura int,
   cupo_max numeric,
-  porc_uso numeric(4, 1) CHECK (porc_uso >= 0 AND porc_uso <= 100),
+  porc_uso numeric(4, 1) CHECK (porc_uso >= 0),
   atrasos int,
   promedio_compras int
 );
 CREATE TABLE DatosSuscriptor(
   id_tarjeta int PRIMARY KEY,
-  FOREIGN KEY (id_tarjeta) REFERENCES Tarjeta(id),
+  FOREIGN KEY (id_tarjeta) REFERENCES Tarjeta(id) ON DELETE CASCADE,
   rango_etario text,
   educacion int,
   estado_civil int,
   actividad int,
-  FOREIGN KEY (educacion) REFERENCES NivelEducacion(id),
-  FOREIGN KEY (estado_civil) REFERENCES EstadoCivil(id),
-  FOREIGN KEY (actividad) REFERENCES Tarjeta(id)
+  FOREIGN KEY (educacion) REFERENCES NivelEducacion(id) ON DELETE CASCADE,
+  FOREIGN KEY (estado_civil) REFERENCES EstadoCivil(id) ON DELETE CASCADE,
+  FOREIGN KEY (actividad) REFERENCES Tarjeta(id) ON DELETE CASCADE
 );
 CREATE TABLE Compra(
   id serial PRIMARY KEY,
   id_tarjeta int,
   id_producto int,
-  FOREIGN KEY (id_tarjeta) REFERENCES Tarjeta(id),
-  FOREIGN KEY (id_producto) REFERENCES Producto(id),
+  FOREIGN KEY (id_tarjeta) REFERENCES Tarjeta(id) ON DELETE CASCADE,
+  FOREIGN KEY (id_producto) REFERENCES Producto(id) ON DELETE CASCADE,
   cantidad int,
   promocion boolean
 );
@@ -85,7 +85,7 @@ CREATE TABLE dumpeo(
   meses_deuda int,
   anho_apertura int,
   cupo_max numeric,
-  porc_uso numeric(4, 1) CHECK (porc_uso >= 0 AND porc_uso <= 100),
+  porc_uso numeric(4, 1) CHECK (porc_uso >= 0),
   promedio_compras int,
   unidades_a int,
   unidades_b int,

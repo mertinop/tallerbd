@@ -1,10 +1,10 @@
 # Taller 7
 ## 1. Crear un manual paso a paso como se ejecuta el lenguaje plpgsql en postgressql.
 
-Se realizará utilizando pgadmin.
-1. Seleccionar una base de datos
-2. Abrir menú  `Execute arbitrary SQL queries` en la barra de tareas superior.
-3. Introducir y ejecutar código del procedimiento usando la sintáxis:
+1. Navegar en la consola hasta la carpeta `bin` dentro del directorio de instalación de PostgreSQL. En mi caso se encontraba en `C:\Program Files\PostgreSQL\9.5\bin`
+2. Ejecutar el comando `psql -U postgres`, o reemplazar postgres por el usuario registrado. En mi caso no tenía password, pero si la tiene será solicitada.
+3. Seleccionar una base de datos utilizando el comando `\c nombrebd`, en este caso `\c taller`
+4. Introducir y ejecutar código del procedimiento usando la sintáxis:
 
         [ <<label>> ]
         [ DECLARE
@@ -20,9 +20,8 @@ Se realizará utilizando pgadmin.
                         RETURN m + n;
                 END;
         $$ LANGUAGE plpgsql;
-Ahora podrá visibilizar su función en el menú Schemas/public/Functions de pgAdmin
 
-4. Para ejecutar el procedimiento utilizar ``SELECT nombre_funcion(params)``. Se puede realizar en la misma ventana de pgAdmin, o donde sea necesario.
+4. Para ejecutar el procedimiento utilizar ``SELECT nombre_funcion(params)``.
 
 **Ejemplo**
 
