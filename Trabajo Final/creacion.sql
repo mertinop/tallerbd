@@ -1,19 +1,18 @@
 CREATE TABLE Addresses(
-    address_id serial PRIMARY KEY,
-    line1_number_building int,
-    line2_number_street text,
-    line_3_area_locality text,
+    address_id int PRIMARY KEY,
+    street text,
     city text,
     zip_postcode int,
     country text
 );
 
 CREATE TABLE Members(
-    member_id serial PRIMARY KEY,
+    member_id int PRIMARY KEY,
     member_address_id int,
     FOREIGN KEY (member_address_id) REFERENCES Addresses(address_id) ON DELETE CASCADE,
+    member_name text,
     gender text,
-    phone_number int,
+    phone_number text,
     email_address text
 );
 
@@ -24,19 +23,19 @@ CREATE TABLE Books(
 );
 
 CREATE TABLE Categories(
-    category_id serial PRIMARY KEY,
+    category_id int PRIMARY KEY,
     category_name text
 );
 
 CREATE TABLE Books_by_Category(
     category_id int,
     isbn int,
-    FOREIGN KEY (category_id) REFERENCES Categories(category_id),
-    FOREIGN KEY (isbn) REFERENCES Books(isbn),
+    FOREIGN KEY (category_id) REFERENCES Categories(category_id) ON DELETE CASCADE,
+    FOREIGN KEY (isbn) REFERENCES Books(isbn) ON DELETE CASCADE,
     PRIMARY KEY (category_id, isbn)
 );
 CREATE TABLE Member_Requests(
-    request_id serial PRIMARY KEY,
+    request_id int PRIMARY KEY,
     member_id int,
     isbn int,
     FOREIGN KEY (member_id) REFERENCES Members(member_id) ON DELETE CASCADE,
@@ -46,7 +45,7 @@ CREATE TABLE Member_Requests(
 );
 
 CREATE TABLE Libraries(
-    library_id serial PRIMARY KEY,
+    library_id int PRIMARY KEY,
     address_id int,
     FOREIGN KEY (address_id) REFERENCES Addresses(address_id) ON DELETE CASCADE,
     library_name text,
@@ -62,7 +61,7 @@ CREATE TABLE Books_at_Libraries(
 );
 
 CREATE TABLE Authors(
-	author_id serial PRIMARY KEY,
+	author_id int PRIMARY KEY,
 	author_first_name text,
 	author_last_name text
 );
@@ -74,7 +73,4 @@ CREATE TABLE Books_By_Author(
 	FOREIGN KEY (isbn) REFERENCES Books(isbn) ON DELETE CASCADE,
 	PRIMARY KEY (author_id,isbn)
 );
-
-
-
 
